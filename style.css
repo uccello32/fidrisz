@@ -1,0 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a;
+    display: flex;
+
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+}
+
+
+.content {
+    display: flex;
+    flex-direction: row;
+    margin-left: 4vw;
+    width: 60%;
+}
+
+.Rules {
+    color: white;
+    margin-left: 0vw;
+}
+
+.Rules h2 {
+
+    width: 90%;
+    margin-left: -1.2vw;
+}
+
+.Rules p {
+
+    width: 100%;
+    margin-top: 1vw;
+    margin-left: 0vw;
+    font-size: 0.9vw;
+
+}
+
+.Rules ul {
+
+    margin-top: 2vw;
+    line-height: 2vw;
+    font-size: 0.9vw;
+}
+
+main {
+    margin-left: 2vw;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #e0e0e0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
+        -1px -1px 2px rgba(255, 255, 255, 0.2);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    padding: 10px;
+    background: linear-gradient(45deg, #2d2d2d, #3d3d3d);
+    border: 2px solid #555;
+    border-radius: 5px;
+}
+
+#tetris {
+    background-color: #2d2d2d;
+    border: 4px solid #555;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    image-rendering: pixelated;
+    /* Keeps the retro pixel look */
+    transition: transform 0.2s ease;
+    aspect-ratio: 0.5;
+}
+
+/* Retro overlay effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Classes for GSAP animations */
+.glow-pulse {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.game-over-overlay {
+    position: absolute;
+    /* width: 300px; */
+    /* height: 600px; */
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.game-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0, 100, 255, 0.3);
+    transition: transform 0.2s;
+}
+
+.credits {
+    margin-top: 10vw;
+    text-align: left;
+    font-family: 'Press Start 2P', cursive;
+
+}
+
+.made-by {
+    display: block;
+    margin-bottom: 2vw;
+    animation: glow 2s ease-in-out infinite alternate;
+    font-size: 2vw;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 1vw;
+}
+
+.name {
+    transition: transform 0.3s ease;
+}
+
+.name:hover {
+    transform: scale(1.05) translateX(20px);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.email-link {
+    display: flex;
+    align-items: left;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.email-link:hover {
+    transform: scale(1.05) translateX(20px);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6;
+    }
+
+    to {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6;
+    }
+}
+
+
+.game-container:hover {
+    transform: scale(1.01);
+}
+
+#tetris {
+    display: block;
+    margin: 0 auto;
+    background: #2d2d2d;
+    border-radius: 6px;
+    transition: all 0.3s;
+    margin-left: 3.5vw;
+}
+
+.glow-pulse {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
+}
+
+
+.game-over-overlay {
+    position: absolute;
+    top: 0;
+    left: 0vw;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.game-over-overlay h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ff5252;
+    text-shadow: 0 0 10px rgba(255, 82, 82, 0.7);
+}
+
+.game-over-overlay p {
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+#score {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 100, 255, 0.5);
+}
+
+/* Overlay Home Screen Styles */
+#start-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#start-overlay h1 {
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#start-overlay button {
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    background-color: #16a4d8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#start-overlay button:hover {
+    background-color: #1389b3;
+}
