@@ -9,16 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="main">
+  <div id="main">
     <div id="score" class="header">Pont: 0</div>
-    <div class="board">
+    <div id="board">
       <canvas id="tetris"></canvas>
     </div>
 
     <div class="footer">
-      <button class="ctrl ctrlLeft"> Balra </button>
-      <button class="ctrl ctrlRight"> Jobbra </button>
-      <button class="ctrl ctrlFull"> Le </button>
+      <button class="ctrl ctrlLeft" onclick="moveLeft()"> &ShortLeftArrow;  </button>
+      <button class="ctrl ctrlRight" onclick="moveRight()"> &ShortRightArrow; </button>
+      <button class="ctrl ctrlLeft" onclick="hardDropPiece()">  &ShortDownArrow; </button>
+      <button class="ctrl ctrlRight" onclick="rotate()"> &circlearrowright; </button>
     </div>
     
     <div id="start-overlay" class="overlay">
