@@ -242,7 +242,7 @@ const gameOverOverlay = document.createElement('div');
 gameOverOverlay.className = 'game-over-overlay';
 gameOverOverlay.innerHTML = `
     <h3>Game o' NER</h3>
-    <p><button onclick="startGame()">Újrakezdés</button></p>
+    <p><button class="ctrl" onclick="startGame()">Újrakezdés</button></p>
 `;
 document.querySelector('body').appendChild(gameOverOverlay);
 
