@@ -21,33 +21,6 @@ body {
     width: 60%;
 }
 
-.Rules {
-    color: white;
-    margin-left: 0vw;
-}
-
-.Rules h2 {
-
-    width: 90%;
-    margin-left: -1.2vw;
-}
-
-.Rules p {
-
-    width: 100%;
-    margin-top: 1vw;
-    margin-left: 0vw;
-    font-size: 0.9vw;
-
-}
-
-.Rules ul {
-
-    margin-top: 2vw;
-    line-height: 2vw;
-    font-size: 0.9vw;
-}
-
 main {
     margin-left: 2vw;
 }
@@ -68,17 +41,6 @@ h2 {
     border-radius: 5px;
 }
 
-#tetris {
-    background-color: #2d2d2d;
-    border: 4px solid #555;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7),
-        inset 0 0 10px rgba(255, 255, 255, 0.1);
-    /* image-rendering: pixelated; */
-    /* Keeps the retro pixel look */
-    transition: transform 0.2s ease;
-    aspect-ratio: 0.5;
-}
 
 /* Retro overlay effect */
 body::before {
@@ -138,14 +100,6 @@ body::before {
     transform: scale(1.01);
 }
 
-#tetris {
-    display: block;
-    margin: 0 auto;
-    background: #2d2d2d;
-    border-radius: 6px;
-    transition: all 0.3s;
-    margin-left: 3.5vw;
-}
 
 .glow-pulse {
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
@@ -232,7 +186,7 @@ body::before {
 
 
 
-.main {
+#main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -240,14 +194,26 @@ body::before {
   aspect-ratio: 1/2;
 }
 
-.board {
-  height: 100%;
-}
-
-.board canvas {
+#board {
   height: 100%;
   aspect-ratio: 1/2;
-  border: 1px solid red;
+}
+
+#tetris {
+  position: fixed;
+  background-color: #2d2d2d;
+  border: 4px solid #555;
+  border-radius: 8px;
+  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), */
+  /*   inset 0 0 10px rgba(255, 255, 255, 0.1); */
+  /* image-rendering: pixelated; */
+  /* Keeps the retro pixel look */
+  /* transition: transform 0.2s ease; */
+  /* display: block; */
+  /* margin: 0 auto; */
+  background: #2d2d2d;
+  border-radius: 6px;
+  /* transition: all 0.3s; */
 }
 
 .footer {
@@ -258,7 +224,7 @@ body::before {
 }
 
 .ctrl {
-  height: 3em;
+  height: 4em;
 }
 
 .ctrlFull {
