@@ -1,6 +1,21 @@
+let board = document.querySelector("#board");
 let canvas = document.querySelector("#tetris");
 let scoreboard = document.querySelector("#score");
 let ctx = canvas.getContext("2d");
+
+
+function resizeCanvas() {
+  const rect = board.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height - 8;
+  // canvas.style.width = rect.width + 'px';
+  // canvas.style.height = rect.height + 'px';
+  // canvas.style.left = rect.left + 'px';
+  // canvas.style.top = rect.top + 'px';
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
 class Grid {
   constructor(ci, tx, ty, r) {
@@ -125,25 +140,25 @@ const SHAPES_TY = [
   ]
 ]
 
-const SHAPES_ = Array(SHAPES_CI.length)
+const SHAPES = Array(SHAPES_CI.length)
 
 for (let i = 0; i < SHAPES_CI.length; i++) {
-  SHAPES_[i] = Array(SHAPES_CI[i].length)
+  SHAPES[i] = Array(SHAPES_CI[i].length)
   for (let sy = 0; sy < SHAPES_CI[i].length; sy++) {
-    SHAPES_[i][sy] = Array(SHAPES_CI[i][sy].length)
+    SHAPES[i][sy] = Array(SHAPES_CI[i][sy].length)
     for (let sx = 0; sx < SHAPES_CI[i][sy].length; sx++) {
       let grid = null
       if (SHAPES_CI[i][sy][sx] != ' ') {
         grid = new Grid(SHAPES_CI[i][sy][sx], SHAPES_TX[i][sy][sx], SHAPES_TY[i][sy][sx], 0);
       }
-      SHAPES_[i][sy][sx] = grid;
+      SHAPES[i][sy][sx] = grid;
     }
   }
 }
 
 
 function getShapeCopy(i) {
-  return SHAPES_[i].map(row =>
+  return SHAPES[i].map(row =>
     row.map(cell =>
       cell !== null ? new Grid(cell.ci, cell.tx, cell.ty, cell.r) : null
     )
@@ -203,8 +218,8 @@ const GLOW_COLORS = [
   "#ff6666"  // Bomb glow - Bright Red
 ];
 
-const ROWS = 20;
-const COLS = 10;
+const ROWS = 16;
+const COLS = 8;
 const DROP_SPEED = 500;
 const BOMB_CHANCE = 0.0; // 10% chance to spawn a bomb
 
@@ -263,12 +278,12 @@ function randomPieceObject() {
   if (Math.random() < BOMB_CHANCE) {
     ran = 7; // Index of the bomb shape
   } else {
-    ran = Math.floor(Math.random() * SHAPES_.length); // Regular shapes
+    ran = Math.floor(Math.random() * SHAPES.length); // Regular shapes
   }
 
   return {
     piece: getShapeCopy(ran), // SHAPES_[ran],
-    x: 4,
+    x: COLS / 2 - 1,
     y: -2,
     opacity: 1,
     isBomb: ran === 7
@@ -327,30 +342,47 @@ function drawBombCenter(x, y) {
   }
 }
 
-function drawGrid(x, y, g) {
-  ctx.save();
-  // ctx.shadowBlur = 0;
-  // ctx.shadowColor = GLOW_COLORS[g.ci];
-  // ctx.shadowOffsetX = 0;
-  // ctx.shadowOffsetY = 0;
+function getGridWidth() {
+  return canvas.getBoundingClientRect().width / COLS;
+}
 
-  // ctx.fillStyle = COLORS[g.ci];
-  // ctx.fillRect(x, y, 1, 1);
+function getGridHeight() {
+  return canvas.getBoundingClientRect().height / ROWS;
+}
+
+function drawGrid(x, y, g) {
+  let w = getGridWidth();
+  let h = getGridHeight();
+
+  ctx.save();
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = GLOW_COLORS[g.ci];
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
+
+  ctx.fillStyle = COLORS[g.ci];
+  ctx.fillRect(x * w, y * h, w, h);
+
+  let xx = x * w;
+  let yy = y + h;
 
   ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
   ctx.lineWidth = 0.05;
-  ctx.strokeRect(x, y, 1, 1);
+  ctx.strokeRect(x * w, y * h, w, h);
 
-  ctx.translate(1 * (x + 0.5), 1 * (y + 0.5))
-  ctx.rotate(Math.PI * g.r / 2)
-  ctx.translate(-1 * (x + 0.5), -1 * (y + 0.5))
-  ctx.drawImage(texture, 128 * g.tx, 128 * g.ty, 128, 128, x, y, 1, 1)
-  ctx.setTransform(1, 0, 0, 1, 0, 0)
+  ctx.translate(1 * (x * w + w / 2), 1 * (y * h + h / 2));
+  ctx.rotate(Math.PI * g.r / 2);
+  ctx.translate(-1 * (x * w + w / 2), -1 * (y * h + h / 2));
+  ctx.drawImage(texture, 128 * g.tx, 128 * g.ty, 128, 128, x * w, y * h, w, h);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
 
   ctx.restore();
 }
 
 function drawGlowingBlock(x, y, fillColor, glowColor) {
+  let w = getGridWidth();
+  let h = getGridHeight();
+
   ctx.save();
   ctx.shadowBlur = 10;
   ctx.shadowColor = glowColor;
@@ -358,11 +390,11 @@ function drawGlowingBlock(x, y, fillColor, glowColor) {
   ctx.shadowOffsetY = 0;
 
   ctx.fillStyle = fillColor;
-  ctx.fillRect(x, y, 1, 1);
+  ctx.fillRect(x, y, w, h);
 
   ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
   ctx.lineWidth = 0.05;
-  ctx.strokeRect(x, y, 1, 1);
+  ctx.strokeRect(x, y, w, h);
 
   ctx.restore();
 }
@@ -380,12 +412,15 @@ function animateLineClear(rows) {
   }
 
   function animate() {
-    ctx.clearRect(0, 0, COLS, ROWS);
+    let w = getGridWidth();
+    let h = getGridHeight();
+
+    ctx.clearRect(0, 0, COLS * w, ROWS * h);
     renderGameWithoutPiece();
 
     rows.forEach(row => {
       ctx.fillStyle = `rgba(255, 255, 255, ${1 - animationProgress})`;
-      ctx.fillRect(0, row, COLS, 1);
+      ctx.fillRect(0, row * h, COLS * w, h);
     });
 
     animationProgress += 0.1;
@@ -406,7 +441,7 @@ function animateLineClear(rows) {
       }, 100);
 
       // Simple screen shake
-      const main = document.querySelector('main');
+      const main = document.querySelector('#main');
       main.style.transform = 'translateX(4px)';
       setTimeout(() => {
         main.style.transform = 'translateX(-4px)';
@@ -740,7 +775,7 @@ function rotate() {
 
     // Only animate the piece, not the whole canvas
     gsap.to(`#tetris`, {
-      scale: 1.02,
+      scale: 1.005,
       duration: 0.1,
       yoyo: true,
       repeat: 1,
@@ -848,16 +883,9 @@ function collision(x, y, rotatedPiece) {
 }
 
 function renderGame() {
-  let w = canvas.getBoundingClientRect().width;
-  let h = canvas.getBoundingClientRect().height;
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  //ctx.scale(w / 10, h / 20);
-  console.log(w + " " + h);
-  ctx.scale(w / 10, w / 20);
-
-  ctx.clearRect(0, 0, COLS, ROWS);
+  ctx.clearRect(0, 0, COLS * 100, ROWS * 100);
   ctx.fillStyle = "#2d2d2d";
-  ctx.fillRect(0, 0, COLS, ROWS);
+  ctx.fillRect(0, 0, COLS * 100, ROWS * 100);
 
   // Draw grid
   for (let i = 0; i < grid.length; i++) {
