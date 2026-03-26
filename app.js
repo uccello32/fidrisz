@@ -171,7 +171,7 @@ texture.src = "images/ov.png"
 
 
 const SOUNDS = [
-  new Audio("sounds/azeurópaiunió.mp3"),
+  /*new Audio("sounds/azeurópaiunió.mp3"),*/
   new Audio("sounds/brüsszel2.mp3"),
   new Audio("sounds/brüsszel.mp3"),
   new Audio("sounds/cunami.mp3"),
