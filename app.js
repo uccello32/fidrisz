@@ -1,8 +1,6 @@
 let canvas = document.querySelector("#tetris");
 let scoreboard = document.querySelector("#score");
 let ctx = canvas.getContext("2d");
-let s = canvas.width / 10;
-ctx.scale(s, s);
 
 class Grid {
   constructor(ci, tx, ty, r) {
@@ -464,7 +462,7 @@ function clearLines(rows) {
 function updateScore(lines) {
   const points = [0, 10, 30, 50, 100];
   score += points[lines] || 100;
-  scoreboard.innerHTML = `Pont: ${score} | Sor: ${linesCleared}`;
+  scoreboard.innerHTML = `Pont: ${score}`;
 
   // Enhanced score update animation
   gsap.fromTo("#score",
@@ -850,6 +848,13 @@ function collision(x, y, rotatedPiece) {
 }
 
 function renderGame() {
+  let w = canvas.getBoundingClientRect().width;
+  let h = canvas.getBoundingClientRect().height;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  //ctx.scale(w / 10, h / 20);
+  console.log(w + " " + h);
+  ctx.scale(w / 10, w / 20);
+
   ctx.clearRect(0, 0, COLS, ROWS);
   ctx.fillStyle = "#2d2d2d";
   ctx.fillRect(0, 0, COLS, ROWS);
