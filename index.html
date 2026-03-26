@@ -1,76 +1,35 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<script>
-</script>
-
-<style>
-
-div {
-  border: 6px solid mediumturquoise;
-  background-color: gray;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  aspect-ratio: 1/2;
-}
-
-.board {
-  height: 100%;
-}
-
-.board canvas {
-  height: 100%;
-  aspect-ratio: 1/2;
-  border: 1px solid red;
-}
-
-.footer {
-  width: 80%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-
-.ctrl {
-  height: 4em;
-}
-
-.ctrlFull {
-  grid-column: 1 / span 2;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fidrisz</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
-
 <body>
+  <div class="main">
+    <div id="score" class="header">Pont: 0</div>
+    <div class="board">
+      <canvas id="tetris"></canvas>
+    </div>
 
+    <div class="footer">
+      <button class="ctrl ctrlLeft"> Balra </button>
+      <button class="ctrl ctrlRight"> Jobbra </button>
+      <button class="ctrl ctrlFull"> Le </button>
+    </div>
+    
+    <div id="start-overlay" class="overlay">
+      <h1>Fidrisz</h1>
+      <button id="play-btn">Start</button>
+    </div>
+      
+  </div>
 
-<div class="main">
-
-<div class="header">
-Pont: 10
-</div>
-
-<div class="board">
-<canvas></canvas>
-</div>
-
-<div class="footer">
-
-<button class="ctrl ctrlLeft"> <- </button>
-<button class="ctrl ctrlRight"> -> </button>
-<button class="ctrl ctrlFull"> DD </button>
-
-</div>
-
-
-</div>
-
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
