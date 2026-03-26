@@ -241,8 +241,8 @@ gsap.registerPlugin(ScrollTrigger);
 const gameOverOverlay = document.createElement('div');
 gameOverOverlay.className = 'game-over-overlay';
 gameOverOverlay.innerHTML = `
-    <h3>Túl sok Fidesz!</h3>
-    <p>Nyomd meg az R gombot az újrakezdéshez</p>
+    <h3>Game o' NER</h3>
+    <p><button onclick="startGame()">Újrakezdés</button></p>
 `;
 document.querySelector('body').appendChild(gameOverOverlay);
 
