@@ -137,6 +137,34 @@ body::before {
     color: #ffffff;
 }
 
+
+#score-overlay {
+    position: absolute;
+    top: 0;
+    left: 0vw;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+}
+
+#score-overlay h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ff5252;
+    text-shadow: 0 0 10px rgba(255, 82, 82, 0.7);
+}
+
+
 #score {
     text-align: center;
     font-size: 1rem;
@@ -167,7 +195,7 @@ body::before {
     text-align: center;
 }
 
-#start-overlay button {
+button {
     padding: 10px 20px;
     font-family: 'Press Start 2P', cursive;
     font-size: 16px;
@@ -225,6 +253,9 @@ body::before {
 
 .ctrl {
   height: 4em;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: 0.25em;
 }
 
 .ctrlFull {
