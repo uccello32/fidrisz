@@ -213,13 +213,20 @@ button {
 
 
 
-
-#main {
+#container {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#main {
   height: 94vh;
   aspect-ratio: 1/2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #board {
