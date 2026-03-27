@@ -9,27 +9,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="main">
-    <div id="score" class="header"></div>
-    <div id="board">
-      <canvas id="tetris"></canvas>
-    </div>
+    <div id="container">
+      <div id="main">
+        <div id="score" class="header"></div>
+        <div id="board">
+          <canvas id="tetris"></canvas>
+        </div>
 
-    <div class="footer">
-      <button class="ctrl ctrlLeft" onclick="moveLeft()"> &ShortLeftArrow;  </button>
-      <button class="ctrl ctrlRight" onclick="moveRight()"> &ShortRightArrow; </button>
-      <button class="ctrl ctrlLeft" onclick="hardDropPiece()">  &ShortDownArrow; </button>
-      <button class="ctrl ctrlRight" onclick="rotate()"> &circlearrowright; </button>
-    </div>
-    
-    <div id="start-overlay" class="overlay">
-      <h1>Fidrisz</h1>
-      <button id="play-btn">Start</button>
-    </div>
+        <div class="footer">
+          <button class="ctrl ctrlLeft" onclick="moveLeft()"> &ShortLeftArrow;  </button>
+          <button class="ctrl ctrlRight" onclick="moveRight()"> &ShortRightArrow; </button>
+          <button class="ctrl ctrlLeft" onclick="hardDropPiece()">  &ShortDownArrow; </button>
+          <button class="ctrl ctrlRight" onclick="rotate()"> &circlearrowright; </button>
+        </div>
 
-    <div id="score-overlay"><h3>+1 SOROS</h3></div>
-      
-  </div>
+        <div id="start-overlay" class="overlay">
+          <h1>Fidrisz</h1>
+          <button id="play-btn">Start</button>
+        </div>
+
+        <div id="score-overlay"><h3>+1 SOROS</h3></div>
+
+      </div>
+    </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
