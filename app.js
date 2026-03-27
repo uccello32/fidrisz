@@ -241,12 +241,12 @@ gsap.registerPlugin(ScrollTrigger);
 const gameOverOverlay = document.createElement('div');
 gameOverOverlay.className = 'game-over-overlay';
 gameOverOverlay.innerHTML = `
-    <h3>Game o' NER</h3>
-    <p><button class="ctrl" onclick="startGame()">Újrakezdés</button></p>
+    <h3>Game o'NER</h3>
+    <p><button onclick="startGame()">Újra</button></p>
 `;
 document.querySelector('body').appendChild(gameOverOverlay);
 
-
+const scoreOverlay = document.querySelector("#score-overlay");
 
 var soundToPlay = 0;
 
@@ -468,6 +468,16 @@ function renderGameWithoutPiece() {
   }
 }
 
+function animateScoreOverlay(rowsToClear) {
+  scoreOverlay.innerHTML = `+${rowsToClear} SOROS`;
+  gsap.fromTo(scoreOverlay,
+    { opacity: 1, scale: 1 },
+    {
+      opacity: 0, scale: 3, duration: 1, ease: "power2.out",
+    }
+  );
+}
+
 function checkGrid() {
   if (isClearingLines) return; // Prevent overlap
 
@@ -481,6 +491,7 @@ function checkGrid() {
   if (rowsToClear.length > 0) {
     playRandomSound(rowsToClear.length);
     animateLineClear(rowsToClear);
+    animateScoreOverlay(rowsToClear.length);
     linesCleared += rowsToClear.length;
     updateScore(rowsToClear.length);
     gameSpeed = Math.max(100, DROP_SPEED - (linesCleared * 10));
@@ -497,7 +508,7 @@ function clearLines(rows) {
 function updateScore(lines) {
   const points = [0, 10, 30, 50, 100];
   score += points[lines] || 100;
-  scoreboard.innerHTML = `Pont: ${score}`;
+  scoreboard.innerHTML = `${linesCleared} SOROS`;
 
   // Enhanced score update animation
   gsap.fromTo("#score",
@@ -974,8 +985,10 @@ function startGame() {
   // Start game loop
   requestAnimationFrame(gameLoop);
 
+  resizeCanvas();
+
   // Intro animation
-  gsap.fromTo("#tetris",
+  gsap.fromTo("#board",
     { scale: 0.9, opacity: 0, y: 20 },
     { scale: 1, opacity: 1, y: 0, duration: 1, ease: "elastic.out(1, 0.5)" }
   );
